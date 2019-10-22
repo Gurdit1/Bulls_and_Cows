@@ -10,18 +10,18 @@
 
     <EditText
         android:id="@+id/userInput"
-        android:layout_width="146dp"
-        android:layout_height="54dp"
+        android:layout_width="78dp"
+        android:layout_height="49dp"
         android:ems="10"
         android:hint="Guess"
         android:inputType="number"
+        android:maxLength="4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.109"
+        app:layout_constraintHorizontal_bias="0.087"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.151"
-        android:maxLength="4"/>
+        app:layout_constraintVertical_bias="0.15" />
 
     <TextView
         android:id="@+id/guessDisplay1"
@@ -244,5 +244,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.025" />
+
+    <ImageButton
+        android:id="@+id/addGuessButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.332"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.147"
+        app:srcCompat="@android:drawable/ic_input_add" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

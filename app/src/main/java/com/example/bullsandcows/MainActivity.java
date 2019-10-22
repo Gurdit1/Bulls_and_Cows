@@ -12,7 +12,11 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
+
+    public int n = numGenerator();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,4 +56,19 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public static int numGenerator(){
+        //Generates a 4-digit random number
+
+        Random r = new Random();
+        int number = r.nextInt(9999);
+
+        while(!((Integer.toString(number)).length()==4)){
+            number = r.nextInt(9999);
+        }
+
+        return number;
+    }
+
+
 }
