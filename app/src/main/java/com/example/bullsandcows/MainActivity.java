@@ -119,6 +119,17 @@ public class MainActivity extends AppCompatActivity {
         return repeating;
     }
 
+    public boolean guessExisted(android.widget.TextView[] gdr, String guess){
+        boolean notExists = false;
+        for(int i=0;i<7;++i){
+            if((String.valueOf((gdr[i]).getText())).equals(guess)) {
+                notExists = true;
+            }
+        }
+
+        return notExists;
+    }
+
     public void onClick(View view){
         android.widget.ImageButton rs = this.findViewById(R.id.restartButton);
         android.widget.ImageButton ad = this.findViewById(R.id.addGuessButton);
@@ -141,8 +152,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         else {
-            tx.setText(String.valueOf(n));////////////////////////
-
             android.widget.TextView gdp1 = this.findViewById(R.id.guessDisplay1);
             android.widget.TextView gdp2 = this.findViewById(R.id.guessDisplay2);
             android.widget.TextView gdp3 = this.findViewById(R.id.guessDisplay3);
@@ -163,37 +172,88 @@ public class MainActivity extends AppCompatActivity {
 
             android.widget.TextView[] rdpArr = {rdp1, rdp2, rdp3, rdp4, rdp5, rdp6, rdp7}; //Array of all the resultDisplay widgets
 
-            //Searches for the first empty guessDisplay widget to know which widget needs editing or if all widgets are full
-            int i = 0;
-            while ((!(String.valueOf(gdpArr[i].getText()).equals("")) && (i < 7))) {
-                i += 1;
+            //Checks if guess has already been made
+            if(guessExisted(gdpArr, String.valueOf(g.getText()))){
+                tx.setText("Guess already made");
             }
+            else {
+                //Searches for the first empty guessDisplay widget to know which widget needs editing or if all widgets are full
+                int i = 0;
+                while ((!(String.valueOf(gdpArr[i].getText()).equals("")) && (i < 7))) {
+                    i += 1;
+                }
 
 
-            //Returns the number of cows and bulls
-            int bulls = bullCount(String.valueOf(g.getText()), n);
-            int cows = cowBullCount(String.valueOf(g.getText()), n) - bulls; //Counts the number of cows and subtracts it from the number of bulls to prevent repeated counting
+                //Returns the number of cows and bulls
+                int bulls = bullCount(String.valueOf(g.getText()), n);
+                int cows = cowBullCount(String.valueOf(g.getText()), n) - bulls; //Counts the number of cows and subtracts it from the number of bulls to prevent repeated counting
 
 
-            gdpArr[i].setText(String.valueOf(g.getText()));
-            rdpArr[i].setText(String.valueOf(bulls) + "B" + String.valueOf(cows) + "C");
+                gdpArr[i].setText(String.valueOf(g.getText()));
+                rdpArr[i].setText(String.valueOf(bulls) + "B" + String.valueOf(cows) + "C");
 
-            //tx.setText(String.valueOf(bulls) + "B" + String.valueOf(cows) + "C");
+                tx.setText(String.valueOf(bulls) + "B" + String.valueOf(cows) + "C");
 
-            //checks if game has been won and outputs "You won"
-            if ((String.valueOf(g.getText())).equals(String.valueOf(n))) {
-                tx.setText("You won");
-                //Disables + button and activates restart button
-                ad.setClickable(false);
-                rs.setClickable(true);
+                //checks if game has been won and outputs "You won"
+                if ((String.valueOf(g.getText())).equals(String.valueOf(n))) {
+                    tx.setText("You won");
+                    //Disables + button and activates restart button
+                    ad.setClickable(false);
+                    rs.setClickable(true);
+                }
+                //checks if game a been lost and outputs "You lost"
+                else if (i == 6) {
+                    tx.setText("You lost    " + n);
+                    //Disables + button and activates restart button
+                    ad.setClickable(false);
+                    rs.setClickable(true);
+                }
             }
-            //checks if game a been lost and outputs "You lost"
-            else if (i == 6) {
-                tx.setText("You lost");
-                //Disables + button and activates restart button
-                ad.setClickable(false);
-                rs.setClickable(true);
-            }
+        }
+    }
+
+    public void onClickRestart(View view){
+        //Resets everything to default
+
+        android.widget.ImageButton rs = this.findViewById(R.id.restartButton);
+        android.widget.ImageButton ad = this.findViewById(R.id.addGuessButton);
+
+        android.widget.TextView g = this.findViewById(R.id.userInput);
+        android.widget.TextView tx = this.findViewById(R.id.textView);
+
+        android.widget.TextView gdp1 = this.findViewById(R.id.guessDisplay1);
+        android.widget.TextView gdp2 = this.findViewById(R.id.guessDisplay2);
+        android.widget.TextView gdp3 = this.findViewById(R.id.guessDisplay3);
+        android.widget.TextView gdp4 = this.findViewById(R.id.guessDisplay4);
+        android.widget.TextView gdp5 = this.findViewById(R.id.guessDisplay5);
+        android.widget.TextView gdp6 = this.findViewById(R.id.guessDisplay6);
+        android.widget.TextView gdp7 = this.findViewById(R.id.guessDisplay7);
+
+        android.widget.TextView[] gdpArr = {gdp1, gdp2, gdp3, gdp4, gdp5, gdp6, gdp7}; //Array of all the guessDisplay widgets
+
+        android.widget.TextView rdp1 = this.findViewById(R.id.resultDIsplay1);
+        android.widget.TextView rdp2 = this.findViewById(R.id.resultDisplay2);
+        android.widget.TextView rdp3 = this.findViewById(R.id.resultDisplay3);
+        android.widget.TextView rdp4 = this.findViewById(R.id.resultDisplay4);
+        android.widget.TextView rdp5 = this.findViewById(R.id.resultDisplay5);
+        android.widget.TextView rdp6 = this.findViewById(R.id.resultDisplay6);
+        android.widget.TextView rdp7 = this.findViewById(R.id.resultDisplay7);
+
+        android.widget.TextView[] rdpArr = {rdp1, rdp2, rdp3, rdp4, rdp5, rdp6, rdp7}; //Array of all the resultDisplay widgets
+
+        //Disables restart button and activates + button
+        rs.setClickable(false);
+        ad.setClickable(true);
+
+        //Clears input and output text boxes
+        g.setText("");
+        g.setHint("Guess");
+        tx.setText("");
+
+        //Clears the guessDisplay and resultDisplay text boxes
+        for(int i=0;i<7;++i){
+            gdpArr[i].setText("");
+            rdpArr[i].setText("");
         }
     }
 
