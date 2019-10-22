@@ -73,8 +73,21 @@ public class MainActivity extends AppCompatActivity {
         return number;
     }
 
-    public int cowCount(String guess, String n){
-        //Counts the cows
+    public int bullCount(String guess, String n){
+        //Counts the bulls
+        int bulls = 0;
+        //Checks if the digits at i in both guess and n match
+        for(int i=0; i<4;++i){
+            if((String.valueOf(guess.charAt(i))).equals(String.valueOf(n.charAt(i)))){
+                bulls+=1;
+            }
+        }
+
+        return bulls;
+    }
+
+    public int cowBullCount(String guess, String n){
+        //Counts the cows and bulls
         int cows = 0;
         for(int i=0;i<4;++i){
             //Checks if digit from guess is contained in n
@@ -158,8 +171,8 @@ public class MainActivity extends AppCompatActivity {
 
 
             //Returns the number of cows and bulls
-            int bulls = 0;
-            int cows = cowCount(String.valueOf(g.getText()), n) - bulls; //Counts the number of cows and subtracts it from the number of bulls to prevent repeated counting
+            int bulls = bullCount(String.valueOf(g.getText()), n);
+            int cows = cowBullCount(String.valueOf(g.getText()), n) - bulls; //Counts the number of cows and subtracts it from the number of bulls to prevent repeated counting
 
 
             gdpArr[i].setText(String.valueOf(g.getText()));
