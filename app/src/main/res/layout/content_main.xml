@@ -20,7 +20,8 @@
         app:layout_constraintHorizontal_bias="0.109"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.151" />
+        app:layout_constraintVertical_bias="0.151"
+        android:maxLength="4"/>
 
     <TextView
         android:id="@+id/guessDisplay1"
